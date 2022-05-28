@@ -18,6 +18,11 @@ export default class VideoPlayer{
     public toggle(){
         this.player.paused ? this.player.play() : this.player.pause();
     }
+    get isPlaying(){
+        return{
+            state:this.player.paused ? false : true
+        }
+    }
     public setSourceStream(source:string){
         this.player.src = source;
     }

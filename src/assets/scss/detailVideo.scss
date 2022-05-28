@@ -56,9 +56,9 @@
 	height: 300px;
 	perspective: 1000px;
 
-	&:hover .video_details_wrapper {
-		transform: rotateY(180deg);
-	}
+	// &:hover .video_details_wrapper {
+	// 	transform: rotateY(180deg);
+	// }
 }
 
 .video-data {

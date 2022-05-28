@@ -23,7 +23,7 @@ const errorMsgSearchInput = new AnimationContoller(document.querySelector(".erro
 const manipulateDOM = new ManipulateDOM();
 const videoElement = document.querySelector<HTMLVideoElement>("[data-video]")
 const videoPlayer = new VideoPlayer(videoElement);
-
+const poster = document.querySelector<HTMLImageElement>("[data-poster-video]");
 const { config } = configSetup.configDownloadFiles;
 console.log(configSetup.configDownloadFiles.config);
 
@@ -136,7 +136,18 @@ SEARCH_BUTTON.addEventListener("click", () => {
 
 videoElement.addEventListener("click",()=>{
 	videoPlayer.toggle();
+	
+	console.log(videoPlayer.isPlaying)
+	videoPlayer.isPlaying.state ? startVideoPlayerAnimations() : stopVideoPlayerAnimations();
 })
+
+poster.addEventListener("click",()=>{
+	videoPlayer.toggle();
+	
+	console.log(videoPlayer.isPlaying)
+	videoPlayer.isPlaying.state ? startVideoPlayerAnimations() : stopVideoPlayerAnimations();
+})
+
 
 //event : () => change input link if appropriate
 INPUT_FIELD_FOR_VIDEO_ID.addEventListener("input", () => {
@@ -147,7 +158,7 @@ INPUT_FIELD_FOR_VIDEO_ID.addEventListener("input", () => {
 });
 
 const setPoster = (thumbnails: any) => {
-	const poster = document.querySelector<HTMLImageElement>("[data-poster-video]");
+
 	poster.src = thumbnails[thumbnails.length - 1].url;
 	poster.dataset.posterVideo = "done";
 	document.querySelector(".poster-video").classList.add("poster-done");
