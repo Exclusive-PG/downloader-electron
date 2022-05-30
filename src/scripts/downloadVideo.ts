@@ -5,7 +5,7 @@ import { path, ytdl, fs } from "./requiredLib";
 import { validateYotubeLinkType } from "./types/types";
 import { ManipulateDOM } from "./manipulateDOM";
 import VideoPlayer from "./videoplayer/VideoPlayer";
-import { startVideoPlayerAnimations, stopVideoPlayerAnimations } from "./videoplayer/videoPlayerControllerAnimation";
+import { playControlsAnimations, startVideoPlayerAnimations, stopVideoPlayerAnimations } from "./videoplayer/videoPlayerControllerAnimation";
 
 const OUPUT_DATA_PERCENT_DOWNLOAD = document.querySelector<HTMLDivElement>(".download-data");
 const INPUT_FIELD_FOR_VIDEO_ID = document.querySelector<HTMLInputElement>(".searchId");
@@ -24,6 +24,8 @@ const manipulateDOM = new ManipulateDOM();
 const videoElement = document.querySelector<HTMLVideoElement>("[data-video]")
 const videoPlayer = new VideoPlayer(videoElement);
 const poster = document.querySelector<HTMLImageElement>("[data-poster-video]");
+const playControls          = document.querySelector<HTMLDivElement>(".play-controls")
+
 const { config } = configSetup.configDownloadFiles;
 console.log(configSetup.configDownloadFiles.config);
 
@@ -134,19 +136,24 @@ SEARCH_BUTTON.addEventListener("click", () => {
 });
 
 
-videoElement.addEventListener("click",()=>{
-	videoPlayer.toggle();
-	
-	console.log(videoPlayer.isPlaying)
-	videoPlayer.isPlaying.state ? startVideoPlayerAnimations() : stopVideoPlayerAnimations();
-})
+//videoElement.addEventListener("click",PlayControls)
 
-poster.addEventListener("click",()=>{
+poster.addEventListener("click",PlayControls)
+
+playControls.addEventListener("click",PlayControls)
+
+function PlayControls(){
 	videoPlayer.toggle();
 	
 	console.log(videoPlayer.isPlaying)
 	videoPlayer.isPlaying.state ? startVideoPlayerAnimations() : stopVideoPlayerAnimations();
-})
+	playControlsAnimations(videoPlayer.isPlaying.state)
+}
+
+
+
+
+
 
 
 //event : () => change input link if appropriate
