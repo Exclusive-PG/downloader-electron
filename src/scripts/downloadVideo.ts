@@ -4,8 +4,8 @@ import { AnimationContoller, AnimationDownloadingContoller } from "./animations/
 import { path, ytdl, fs } from "./requiredLib";
 import { validateYotubeLinkType } from "./types/types";
 import { ManipulateDOM } from "./manipulateDOM";
-import VideoPlayer from "./videoplayer/VideoPlayer";
-import { playControlsAnimations, startVideoPlayerAnimations, stopVideoPlayerAnimations } from "./videoplayer/videoPlayerControllerAnimation";
+import { startVideoPlayerAnimations, stopVideoPlayerAnimations } from "./videoplayer/videoPlayerControllerAnimation";
+import { disabledVideoPlayer, enabledVideoPlayer, setPoster, videoPlayer } from "./videoplayer/videoPlayerController";
 
 const OUPUT_DATA_PERCENT_DOWNLOAD = document.querySelector<HTMLDivElement>(".download-data");
 const INPUT_FIELD_FOR_VIDEO_ID = document.querySelector<HTMLInputElement>(".searchId");
@@ -14,17 +14,12 @@ const ANIMATION_ELEMENT = document.querySelector<HTMLDivElement>(".dl");
 const SEARCH_BUTTON = document.querySelector<HTMLDivElement>(".btn-search");
 const YOUTUBE_VALIDATE_LINK = "https://www.youtube.com/watch?v=";
 const SEPARATE_SYMBOLS = "v=";
-
 const configSetup = new Config();
 const animationDownloadingContoller = new AnimationDownloadingContoller(ANIMATION_ELEMENT);
 const downloadScreen = new AnimationContoller(document.querySelector(".download_screen"));
 const incorrectUrlOrId = new AnimationContoller(document.querySelector(".search__input"));
 const errorMsgSearchInput = new AnimationContoller(document.querySelector(".error_msg_search_input"));
 const manipulateDOM = new ManipulateDOM();
-const videoElement = document.querySelector<HTMLVideoElement>("[data-video]")
-const videoPlayer = new VideoPlayer(videoElement);
-const poster = document.querySelector<HTMLImageElement>("[data-poster-video]");
-const playControls          = document.querySelector<HTMLDivElement>(".play-controls")
 
 const { config } = configSetup.configDownloadFiles;
 console.log(configSetup.configDownloadFiles.config);
@@ -135,27 +130,6 @@ SEARCH_BUTTON.addEventListener("click", () => {
 	}
 });
 
-
-//videoElement.addEventListener("click",PlayControls)
-
-poster.addEventListener("click",PlayControls)
-
-playControls.addEventListener("click",PlayControls)
-
-function PlayControls(){
-	videoPlayer.toggle();
-	
-	console.log(videoPlayer.isPlaying)
-	videoPlayer.isPlaying.state ? startVideoPlayerAnimations() : stopVideoPlayerAnimations();
-	playControlsAnimations(videoPlayer.isPlaying.state)
-}
-
-
-
-
-
-
-
 //event : () => change input link if appropriate
 INPUT_FIELD_FOR_VIDEO_ID.addEventListener("input", () => {
 	if (INPUT_FIELD_FOR_VIDEO_ID.value.includes(YOUTUBE_VALIDATE_LINK)) {
@@ -164,24 +138,6 @@ INPUT_FIELD_FOR_VIDEO_ID.addEventListener("input", () => {
 	}
 });
 
-const setPoster = (thumbnails: any) => {
-
-	poster.src = thumbnails[thumbnails.length - 1].url;
-	poster.dataset.posterVideo = "done";
-	document.querySelector(".poster-video").classList.add("poster-done");
-	setTimeout(() => {
-		document.querySelector(".poster-video").classList.remove("poster-done");
-	}, 1000);
-};
-
-const disabledVideoPlayer = () => {
-	videoPlayer.pause();
-	stopVideoPlayerAnimations();
-};
-const enabledVideoPlayer = () => {
-	startVideoPlayerAnimations();
-	videoPlayer.play();
-};
 // .then(()=>{
 //     fs.readdir((dirSave:any,err:Error, files:any) => {
 //         files.forEach((file:any) => {

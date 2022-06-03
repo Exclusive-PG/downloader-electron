@@ -17,7 +17,7 @@ export const stopVideoPlayerAnimations = () => {
 
 export const playControlsAnimations = (state:boolean) => {
 
-    playControls.innerHTML = `<ion-icon style="font-size: ${sizeControls}px" name="${state ? "play" : "pause"}"></ion-icon>`
+    playControls.innerHTML = `<ion-icon style="font-size: ${sizeControls}px" name="${!state ? "play" : "pause"}"></ion-icon>`
 
 }
 

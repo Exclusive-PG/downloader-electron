@@ -1,3 +1,11 @@
+video::-webkit-media-controls {
+	display:none !important;
+
+	
+  }
+
+
+
 .poster-video {
 	border-radius: 10px;
 	width: 500px;
@@ -74,10 +82,12 @@
     object-fit: fill;
     transition: 0.2s all;
 
-		&:hover{
-			cursor: pointer;
-		}
+		// &:hover{
+		// 	cursor: pointer;
+		// }
 }
+
+
 .video_wrapper {
 	position: relative;
     width: 500px;
@@ -91,10 +101,15 @@
 	position: absolute;
     top: 88%;
     left: 2%;
-	opacity: 0;
-
+	opacity: 1;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	
+	align-items: center;
 	div{
 		cursor: pointer;
+		margin-right: 50px;
 	}
 }
 .video_wrapper{
@@ -107,3 +122,109 @@
 .play-controls {
 
 }
+.full-screen-controls,.mini-player-controls{
+	// position: absolute;
+	// right: 40px;
+	// top: 15%;
+	font-size: 22px;
+}
+
+
+.timeline-container{
+	height: 7px;
+	margin-inline: .5rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	position: relative;
+    top: -70px;
+
+		&:hover .timeline{
+			height: 100%;
+
+		}
+
+		&:hover .timeline::after{
+			display: block;
+		}
+}
+
+.timeline-container:hover .preview-img{
+	display: block;
+}
+// .timeline .preview-img{
+// 	position: absolute;
+// 	height: 80px;
+// 	aspect-ratio: 16/9;
+// 	top: -11rem;
+// 	transform: translate(-50%,100%);
+// 	left:calc(var(--progress-position)*100%);
+// 	border-radius: .25rem;
+// 	border: 2px solid white;
+// 	display: none;
+// }
+.thumb-img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.video_wrapper.scrubbing .preview-img,
+.timeline-container:hover .preview-img{
+display: block;
+}
+
+
+.timeline{
+	background-color: rgba(100,100,100,0.5);
+	height: 3px;
+	width: 100%;
+	position: relative;
+
+	// &::before{
+	// 	content: "";
+	// 	position: absolute;
+	// 	left: 0;
+	// 	top: 0;
+	// 	bottom: 0;
+	// 	right: calc(100% - var(--preview-progress, .25)* 100%);
+	// 	background-color: rgb(150, 150, 150);
+	// 	display: none;
+	// }
+
+
+	&::after{
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: calc(100% - var(--progress-position, .50)* 100%);
+		background-color: red;
+		display: none;
+	}
+}
+
+
+.timeline .thumb-indicator{
+	--scale: 0;
+    position: absolute;
+    height: 10px;
+    top: -20%;
+    transform: translateX(-50%) scale(var(--scale));
+    left: calc(var(--progress-position,.5)*100%);
+    background-color: red;
+    border-radius: 50%;
+    transition: transform 0.150s ease-in-out;
+    aspect-ratio: 1/1;
+
+}
+
+.timeline-container:hover .thumb-indicator{
+	--scale:2;
+}
+

@@ -26,4 +26,7 @@ export default class VideoPlayer{
     public setSourceStream(source:string){
         this.player.src = source;
     }
+    get SourceStream(){
+        return this.player.src;
+    }
 }
