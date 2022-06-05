@@ -5,6 +5,7 @@ export default class VideoPlayer{
 
     constructor(player:HTMLVideoElement){
         this.player = player;
+        this.player.volume = 0.5
         console.log(this.player)
     }
 
@@ -26,7 +27,12 @@ export default class VideoPlayer{
     public setSourceStream(source:string){
         this.player.src = source;
     }
+    public setVideoVolume(volume:number){
+        this.player.volume = volume;
+    }
+
     get SourceStream(){
         return this.player.src;
     }
+
 }
